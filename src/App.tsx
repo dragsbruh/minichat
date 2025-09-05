@@ -26,6 +26,7 @@ const openai = new OpenAI({
 
 function App() {
   let inputElem: HTMLInputElement;
+  let messagesCont: HTMLDivElement;
 
   const [inputText, setInputText] = createSignal("");
 
@@ -61,6 +62,9 @@ function App() {
 
     for await (const chunk of stream) {
       setLastBotText(lastBotText() + (chunk.choices[0].delta.content ?? ""));
+      queueMicrotask(() => {
+        messagesCont.scrollTo(0, messagesCont.scrollHeight);
+      });
     }
 
     setConversationHistory([
@@ -106,7 +110,10 @@ function App() {
           </Show>
         </div>
 
-        <div class="flex-grow flex flex-col gap-4 overflow-y-auto p-8">
+        <div
+          class="flex-grow flex flex-col gap-4 overflow-y-auto p-8"
+          ref={(el) => (messagesCont = el)}
+        >
           <Show
             when={conversationHistory().length > 0 || isGenerating()}
             fallback={
