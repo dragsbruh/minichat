@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--color-zinc-900);
+  --color-accent: var(--color-emerald-600);
+  --color-accent-hover: var(--color-emerald-500);
+  --color-bubble-user: var(--color-sky-700);
+  --color-bubble-assistant: var(--color-emerald-700);
+  --color-text: var(--color-zinc-100);
+  --color-accent-disabled: var(--color-emerald-800);
+  --font-inter: "Inter", sans-serif;
+}
+
+html,
+body,
+#root {
+  @apply w-full h-full bg-background text-text font-inter;
+}
+
+.markdown-content a {
+  @apply hover:text-accent underline;
+}
+
+.markdown-content code {
+  @apply break-words whitespace-pre-wrap;
+}
